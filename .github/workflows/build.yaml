@@ -30,5 +30,6 @@ jobs:
       uses: mockingbirdnest/actions/windows/upload_artifact@main
       with:
         name: config
+        configuration: ${{ matrix.configuration }}
         headers_directory: ${{ env.PRINCIPIA_HEADERS_CONFIG }}
         solution_directory: ${{ env.PRINCIPIA_MSVC_CONFIG }}
