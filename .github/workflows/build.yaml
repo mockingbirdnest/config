@@ -29,6 +29,6 @@ jobs:
     - name: Upload artifact
       uses: mockingbirdnest/actions/windows/upload_artifact@main
       with:
-        name: abseil-cpp
+        name: config
         headers_directory: ${{ env.PRINCIPIA_HEADERS_CONFIG }}
         solution_directory: ${{ env.PRINCIPIA_MSVC_CONFIG }}
