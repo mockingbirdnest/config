@@ -7,16 +7,20 @@ on:
     branches: [ '*' ]
   workflow_dispatch:
 
+env:
+  PRINCIPIA_HEADERS_CONFIG: include
+  PRINCIPIA_MSVC_CONFIG: none
+
 jobs:
   build:
     runs-on: windows-latest
     steps:
     - name: Checkout source files
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: mockingbirdnest/actions/windows/upload_artifact@main
       with:
-        name: config
-        path: |
-          include/**
+        name: abseil-cpp
+        headers_directory: ${{ env.PRINCIPIA_HEADERS_CONFIG }}
+        solution_directory: ${{ env.PRINCIPIA_MSVC_CONFIG }}
