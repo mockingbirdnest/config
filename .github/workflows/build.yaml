@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+  workflow_dispatch:
+
+env:
+  PRINCIPIA_HEADERS_CONFIG: include
+  PRINCIPIA_MSVC_CONFIG: none
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+        matrix:
+          configuration: [Debug, Release]
+    steps:
+    - name: Checkout source files
+      uses: actions/checkout@v4
+
+    - name: Initialize build environment
+      uses: mockingbirdnest/actions/windows/initialize_build@main
+      with:
+        configuration: ${{ matrix.configuration }}
+
+    - name: Upload artifact
+      uses: mockingbirdnest/actions/windows/upload_artifact@main
+      with:
+        name: config
+        configuration: ${{ matrix.configuration }}
+        headers_directory: ${{ env.PRINCIPIA_HEADERS_CONFIG }}
+        solution_directory: ${{ env.PRINCIPIA_MSVC_CONFIG }}
